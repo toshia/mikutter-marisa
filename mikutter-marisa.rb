@@ -121,7 +121,7 @@ Plugin.create(:marisa) do
   tab(:marisa, '') do
     set_icon File.expand_path(File.join(File.dirname(__FILE__), 'target.png'))
     shrink
-    nativewidget Gtk::HBox.new(false, 0).closeup(searchbtn).closeup(searchbtn2)
+    nativewidget Gtk::HBox.new(false, 0).closeup(yakkaibtn).closeup(sakusyabtn)
     expand
   end
   
