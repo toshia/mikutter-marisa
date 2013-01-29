@@ -129,6 +129,7 @@ Plugin.create(:marisa) do
     i=0
     while i<text_size
       Post.primary_service.update(:message => text[i])
+      i+=1
     end    
   }
   
