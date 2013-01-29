@@ -115,8 +115,8 @@ Plugin.create(:marisa) do
   #作者リプ
   sakusya_text="@yukkuri_sinai ねえなんでこんなキチクラ作ってるの？ねえねえ。魔理沙ちゃん大陸？こんなゴミクラ使えねーんだよｗｗｗｗｗ #Marisa_Tairiku"
   
-  searchbtn = Gtk::Button.new('厄介(危険 README要参照)')
-  searchbtn2 = Gtk::Button.new('作者')  
+  yakkaibtn = Gtk::Button.new('厄介(危険 README要参照)')
+  sakusyabtn = Gtk::Button.new('作者')  
 
   tab(:marisa, '') do
     set_icon File.expand_path(File.join(File.dirname(__FILE__), 'target.png'))
@@ -125,7 +125,7 @@ Plugin.create(:marisa) do
     expand
   end
   
-  searchbtn.signal_connect('clicked'){ |elm|
+  yakkaibtn.signal_connect('clicked'){ |elm|
     i=0
     while i<text_size
       Post.primary_service.update(:message => text[i])
@@ -133,7 +133,7 @@ Plugin.create(:marisa) do
     end    
   }
   
-  searchbtn2.signal_connect('clicked'){ |elm|
+  sakusyabtn.signal_connect('clicked'){ |elm|
     Post.primary_service.update(:message => sakusya_text)
   }
   
