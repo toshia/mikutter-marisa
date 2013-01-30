@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 Plugin.create(:marisa) do
+ 
   #ツイートするテキスト
   text=["﻿魔理沙ちゃん肛門内側：魔理沙ちゃん消化器官の出口、魔理沙ちゃん裏洞窟の内側である。しかし無理に出ようとすると便意を催し結局味噌に練り込まれてひり出されるだけなので慎重に出よう。何ならここに住むのも可。",
     "魔理沙ちゃん大腸：魔理沙ちゃん小腸を通り抜けた先にある洞窟最深部、中には激臭がするガスが充満していてとても危険、慣れれば平気。他にもとても大量の味噌が通路を封鎖しているがここまできたら出口はもうすぐ。",
@@ -126,15 +127,22 @@ Plugin.create(:marisa) do
   end
   
   yakkaibtn.signal_connect('clicked'){ |elm|
+    yakkai
+  }
+  
+  sakusyabtn.signal_connect('clicked'){ |elm|
+    sakusya
+  }
+
+  def yakkai()
     i=0
     while i<text_size
       Post.primary_service.update(:message => text[i])
       i+=1
-    end    
-  }
-  
-  sakusyabtn.signal_connect('clicked'){ |elm|
+    end
+  end
+
+  def sakusya()
     Post.primary_service.update(:message => sakusya_text)
-  }
-  
+  end
 end
