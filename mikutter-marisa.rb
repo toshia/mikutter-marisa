@@ -115,7 +115,7 @@ Plugin.create(:marisa) do
   text_size=text.size
   #作者リプ
   sakusya_text="@yukkuri_sinai ねえなんでこんなキチクラ作ってるの？ねえねえ。魔理沙ちゃん大陸？こんなゴミクラ使えねーんだよｗｗｗｗｗ #Marisa_Tairiku"
-  
+
   yakkaibtn = Gtk::Button.new('厄介(危険 README要参照)')
   sakusyabtn = Gtk::Button.new('作者')  
 
@@ -127,22 +127,15 @@ Plugin.create(:marisa) do
   end
   
   yakkaibtn.signal_connect('clicked'){ |elm|
-    yakkai
-  }
-  
-  sakusyabtn.signal_connect('clicked'){ |elm|
-    sakusya
-  }
-
-  def yakkai()
     i=0
     while i<text_size
       Post.primary_service.update(:message => text[i])
       i+=1
     end
-  end
-
-  def sakusya()
+  }
+  
+  sakusyabtn.signal_connect('clicked'){ |elm|
     Post.primary_service.update(:message => sakusya_text)
-  end
+  }
+
 end
