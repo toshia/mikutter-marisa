@@ -131,7 +131,7 @@ Plugin.create(:marisa) do
   
   yakkaibtn.signal_connect('clicked'){ |elm|
     #確認を行う
-    if chkbox.txt=="魔理沙ちゃんの肝臓ぺろぺろ" then
+    if chkbox.text == "魔理沙ちゃんの肝臓ぺろぺろ" then
       i=0
       while i<text_size
         Post.primary_service.update(:message => text[i])
