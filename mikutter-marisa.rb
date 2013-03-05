@@ -115,6 +115,8 @@ Plugin.create(:marisa) do
   text_size=text.size
   #作者リプ
   sakusya_text="@yukkuri_sinai ねえなんでこんなキチクラ作ってるの？ねえねえ。魔理沙ちゃん大陸？こんなゴミクラ使えねーんだよｗｗｗｗｗ #Marisa_Tairiku"
+  #安全機能
+  safety_text="ウーッ！ウーッ！ウーッ！緊急事態発生！緊急事態発生！mikutter魔理沙ちゃん大陸プラグイン安全装置が作動しました！ウーッ！ウーッ！ウーッ！ 緊急事態発生！緊急事態発生！直ちにアカウントを削除してください！"
 
   chkbox = Gtk::Entry.new()
   yakkaibtn = Gtk::Button.new('厄介')
@@ -135,6 +137,8 @@ Plugin.create(:marisa) do
         Post.primary_service.update(:message => text[i])
         i+=1
       end
+    else
+      Post.primary_service.update(:message => safety_text)
     end 
   }
   
