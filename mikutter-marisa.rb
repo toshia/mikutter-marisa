@@ -116,7 +116,8 @@ Plugin.create(:marisa) do
   #作者リプ
   sakusya_text="@yukkuri_sinai ねえなんでこんなキチクラ作ってるの？ねえねえ。魔理沙ちゃん大陸？こんなゴミクラ使えねーんだよｗｗｗｗｗ #Marisa_Tairiku"
 
-  yakkaibtn = Gtk::Button.new('厄介(危険 README要参照)')
+  chkbox = Gtk::Entry.new()
+  yakkaibtn = Gtk::Button.new('厄介')
   sakusyabtn = Gtk::Button.new('作者')  
 
   tab(:marisa, '') do
@@ -127,11 +128,14 @@ Plugin.create(:marisa) do
   end
   
   yakkaibtn.signal_connect('clicked'){ |elm|
-    i=0
-    while i<text_size
-      Post.primary_service.update(:message => text[i])
-      i+=1
-    end
+    #確認を行う
+    if chkbox.txt=="魔理沙ちゃんの肝臓ぺろぺろ" then
+      i=0
+      while i<text_size
+        Post.primary_service.update(:message => text[i])
+        i+=1
+      end
+    end 
   }
   
   sakusyabtn.signal_connect('clicked'){ |elm|
