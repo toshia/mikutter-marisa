@@ -1,11 +1,11 @@
 ---
-slug: :mikutter-marisa
+slug: mikutter-marisa
 depends:
-  mikutter: 0.2.1.1119
+  mikutter: '3.0'
   plugin:
   - gtk
   - gui
-version: '1.0'
+version: '1.1'
 author: yukkuri_sinai
-name: 魔理沙ちゃん大陸プラグイン
+name: "魔理沙ちゃん大陸プラグイン"
 description: mikutterでも魔理沙ちゃん大陸を使えます！
