@@ -5,7 +5,7 @@ mikutter-marisa.rb README @yukkuri_sinai
 　魔理沙ちゃん大陸という伝説のクライアントをmikutterでも！
 ・インストール方法
 　mikutter/plugin/で
-　　$ git clone https://github.com/yukkurisinai/mikutter-marisa.git
+　　$ git clone https://github.com/toshia/mikutter-marisa.git
 　を実行すればインストールできます
 ・使い方
 　タブがひとつ増えていると思います
