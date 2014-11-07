@@ -134,16 +134,16 @@ Plugin.create(:marisa) do
     if chkbox.text == "魔理沙ちゃんの肝臓ぺろぺろ" then
       i=0
       while i<text_size
-        Post.primary_service.update(:message => text[i])
+        Post.primary_service.update(message: text[i])
         i+=1
       end
     else
-      Post.primary_service.update(:message => safety_text)
+      Post.primary_service.update(message: safety_text)
     end
   }
 
   sakusyabtn.signal_connect('clicked'){ |elm|
-    Post.primary_service.update(:message => sakusya_text)
+    Post.primary_service.update(message: sakusya_text)
   }
 
 end
