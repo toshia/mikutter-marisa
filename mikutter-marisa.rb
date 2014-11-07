@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 Plugin.create(:marisa) do
- 
+
   #ツイートするテキスト
   text=["﻿魔理沙ちゃん肛門内側：魔理沙ちゃん消化器官の出口、魔理沙ちゃん裏洞窟の内側である。しかし無理に出ようとすると便意を催し結局味噌に練り込まれてひり出されるだけなので慎重に出よう。何ならここに住むのも可。",
     "魔理沙ちゃん大腸：魔理沙ちゃん小腸を通り抜けた先にある洞窟最深部、中には激臭がするガスが充満していてとても危険、慣れれば平気。他にもとても大量の味噌が通路を封鎖しているがここまできたら出口はもうすぐ。",
@@ -120,7 +120,7 @@ Plugin.create(:marisa) do
 
   chkbox = Gtk::Entry.new()
   yakkaibtn = Gtk::Button.new('厄介')
-  sakusyabtn = Gtk::Button.new('作者')  
+  sakusyabtn = Gtk::Button.new('作者')
 
   tab(:marisa, '') do
     set_icon File.expand_path(File.join(File.dirname(__FILE__), 'target.png'))
@@ -128,7 +128,7 @@ Plugin.create(:marisa) do
     nativewidget Gtk::HBox.new(false, 0).pack_start(chkbox).closeup(yakkaibtn).closeup(sakusyabtn)
     expand
   end
-  
+
   yakkaibtn.signal_connect('clicked'){ |elm|
     #確認を行う
     if chkbox.text == "魔理沙ちゃんの肝臓ぺろぺろ" then
@@ -139,9 +139,9 @@ Plugin.create(:marisa) do
       end
     else
       Post.primary_service.update(:message => safety_text)
-    end 
+    end
   }
-  
+
   sakusyabtn.signal_connect('clicked'){ |elm|
     Post.primary_service.update(:message => sakusya_text)
   }
