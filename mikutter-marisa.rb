@@ -3,7 +3,7 @@
 Plugin.create(:marisa) do
 
   #ツイートするテキスト
-  text=["﻿魔理沙ちゃん肛門内側：魔理沙ちゃん消化器官の出口、魔理沙ちゃん裏洞窟の内側である。しかし無理に出ようとすると便意を催し結局味噌に練り込まれてひり出されるだけなので慎重に出よう。何ならここに住むのも可。",
+  lunatic_words=["﻿魔理沙ちゃん肛門内側：魔理沙ちゃん消化器官の出口、魔理沙ちゃん裏洞窟の内側である。しかし無理に出ようとすると便意を催し結局味噌に練り込まれてひり出されるだけなので慎重に出よう。何ならここに住むのも可。",
     "魔理沙ちゃん大腸：魔理沙ちゃん小腸を通り抜けた先にある洞窟最深部、中には激臭がするガスが充満していてとても危険、慣れれば平気。他にもとても大量の味噌が通路を封鎖しているがここまできたら出口はもうすぐ。",
     "魔理沙ちゃん小腸：魔理沙ちゃん胃にある幽門を通り抜けた先にあるとても長い洞窟。長過ぎるがここへたどり着けたなら生存確率はぐっと高まる。",
     "魔理沙ちゃん胃：魔理沙ちゃん口や魔理沙ちゃん鼻から奥に進むとここへたどり着く、とても強力な酸が吹き出ておりここに来た者はまず確実に死んでしまう。",
@@ -112,7 +112,6 @@ Plugin.create(:marisa) do
     "魔理沙魔理沙魔理沙魔理沙魔理沙魔理沙魔理沙魔理沙魔理沙魔理沙魔理沙魔理沙",
     "魔理沙ちゃんの腎臓ペロペローーー！！！！！！"
   ]
-  text_size=text.size
   #作者リプ
   sakusya_text="@yukkuri_sinai ねえなんでこんなキチクラ作ってるの？ねえねえ。魔理沙ちゃん大陸？こんなゴミクラ使えねーんだよｗｗｗｗｗ #Marisa_Tairiku"
   #安全機能
@@ -131,11 +130,9 @@ Plugin.create(:marisa) do
 
   yakkaibtn.signal_connect('clicked'){ |elm|
     #確認を行う
-    if chkbox.text == "魔理沙ちゃんの肝臓ぺろぺろ" then
-      i=0
-      while i<text_size
-        Post.primary_service.update(message: text[i])
-        i+=1
+    if chkbox.text == "魔理沙ちゃんの肝臓ぺろぺろ"
+      lunatic_words.each do |lunatic_word|
+        Post.primary_service.update(message: lunatic_word)
       end
     else
       Post.primary_service.update(message: safety_text)
