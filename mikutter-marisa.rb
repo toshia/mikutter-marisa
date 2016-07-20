@@ -2,6 +2,8 @@
 
 Plugin.create(:marisa) do
 
+  denwa_max_length = 40
+
   #ツイートするテキスト
   lunatic_words=["﻿魔理沙ちゃん肛門内側：魔理沙ちゃん消化器官の出口、魔理沙ちゃん裏洞窟の内側である。しかし無理に出ようとすると便意を催し結局味噌に練り込まれてひり出されるだけなので慎重に出よう。何ならここに住むのも可。",
     "魔理沙ちゃん大腸：魔理沙ちゃん小腸を通り抜けた先にある洞窟最深部、中には激臭がするガスが充満していてとても危険、慣れれば平気。他にもとても大量の味噌が通路を封鎖しているがここまできたら出口はもうすぐ。",
@@ -120,12 +122,18 @@ Plugin.create(:marisa) do
   chkbox = Gtk::Entry.new()
   yakkaibtn = Gtk::Button.new('厄介')
   sakusyabtn = Gtk::Button.new('作者')
+  telbtn = Gtk::Button.new('電話')
 
   tab(:marisa, '') do
     set_icon File.expand_path(File.join(__dir__, 'target.png'))
     shrink
-    nativewidget Gtk::HBox.new(false, 0).pack_start(chkbox).closeup(yakkaibtn).closeup(sakusyabtn)
+    nativewidget Gtk::HBox.new(false, 0).pack_start(chkbox).closeup(yakkaibtn).closeup(sakusyabtn).closeup(telbtn)
     expand
+  end
+
+  chkbox.signal_connect(:changed) do |elm|
+    telbtn.sensitive = chkbox.text.size <= denwa_max_length
+    false
   end
 
   yakkaibtn.signal_connect('clicked'){ |elm|
@@ -141,6 +149,27 @@ Plugin.create(:marisa) do
 
   sakusyabtn.signal_connect('clicked'){ |elm|
     Post.primary_service.update(message: sakusya_text)
+  }
+
+  telbtn.signal_connect('clicked'){ |elm|
+    text = chkbox.text
+    chkbox.sensitive = false
+    Thread.new {
+      HTTPClient.new.post('http://denwa.yukkurisinai.net/call', message: text)
+    }.next{|x|
+      if x.status.to_s.start_with?('2') || x.status.to_s.start_with?('3')
+        chkbox.text = ''
+        activity(:system, '電話できました')
+      else
+        activity(:system, "電話できませんでした", description: "電話できませんでした\n\n#{x.status}")
+      end
+      chkbox.sensitive = true
+    }.trap{|err|
+      error err
+      chkbox.sensitive = true
+      activity(:system, "電話できませんでした", description: "電話できませんでした\n\n#{err.to_s}")
+    }
+    false
   }
 
 end

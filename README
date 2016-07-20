@@ -16,3 +16,5 @@ mikutter-marisa.rb README @yukkuri_sinai
 　　　秘密の呪文、「魔理沙ちゃんの肝臓ぺろぺろ」を入力していないと実行されません。
 　　作者
 　　　@yukkuri_sinaiにリプライを送ります
+　　電話
+　　　入力した文字を、合成音声を通じてyukkuri_sinaiへ電話を掛けることができます。
