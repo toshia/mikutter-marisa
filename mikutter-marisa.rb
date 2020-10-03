@@ -3,7 +3,7 @@
 Plugin.create(:marisa) do
   denwa_max_length = 40
 
-  # ツイートするテキスト
+  # 投稿するテキスト
   lunatic_words = ['﻿魔理沙ちゃん肛門内側：魔理沙ちゃん消化器官の出口、魔理沙ちゃん裏洞窟の内側である。しかし無理に出ようとすると便意を催し結局味噌に練り込まれてひり出されるだけなので慎重に出よう。何ならここに住むのも可。',
                    '魔理沙ちゃん大腸：魔理沙ちゃん小腸を通り抜けた先にある洞窟最深部、中には激臭がするガスが充満していてとても危険、慣れれば平気。他にもとても大量の味噌が通路を封鎖しているがここまできたら出口はもうすぐ。',
                    '魔理沙ちゃん小腸：魔理沙ちゃん胃にある幽門を通り抜けた先にあるとても長い洞窟。長過ぎるがここへたどり着けたなら生存確率はぐっと高まる。',
@@ -129,27 +129,31 @@ Plugin.create(:marisa) do
     expand
   end
 
-  chkbox.signal_connect(:changed) do |_elm|
+  chkbox.ssc(:changed) do
     telbtn.sensitive = chkbox.text.size <= denwa_max_length
     false
   end
 
-  yakkaibtn.signal_connect('clicked') do |_elm|
+  yakkaibtn.ssc(:clicked) do
+    world, = Plugin.filtering(:world_current, nil)
     # 確認を行う
     if chkbox.text == '魔理沙ちゃんの肝臓ぺろぺろ'
       lunatic_words.each do |lunatic_word|
-        Post.primary_service.update(message: lunatic_word)
+        compose(world, body: lunatic_word)
       end
     else
-      Post.primary_service.update(message: safety_text)
+      compose(world, body: safety_text)
     end
+    true
   end
 
-  sakusyabtn.signal_connect('clicked') do |_elm|
-    Post.primary_service.update(message: sakusya_text)
+  sakusyabtn.ssc(:clicked) do
+    world, = Plugin.filtering(:world_current, nil)
+    compose(world, body: sakusya_text)
+    true
   end
 
-  telbtn.signal_connect('clicked') do |_elm|
+  telbtn.ssc(:clicked) do |_elm|
     text = chkbox.text
     chkbox.sensitive = false
     Thread.new {
